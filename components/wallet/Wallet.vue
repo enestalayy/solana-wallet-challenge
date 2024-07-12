@@ -1,21 +1,29 @@
 <template>
   <PrimeCard class="walletCard">
     <template #title>
-      <div class="walletHeader">
-        <PrimeButton v-if="password" icon="pi pi-bars" text />
-        <img
+      <div
+        class="walletHeader"
+        :style="
+          password
+            ? '  justify-content: space-between;'
+            : 'justify-content: center;'
+        "
+      >
+        <PrimeButton v-show="password" icon="pi pi-bars" text />
+        <!-- <img
           v-else
           class="walletImg"
           src="/wallet_100px.webp"
           alt="Secured Coin Wallet"
-        />
+        /> -->
         <div class="walletHeaderContent">
-          <span style="display: flex"
-            ><h1 style="margin: 0">{{ accountName }}</h1>
-            <PrimeButton icon="pi pi-copy" text
+          <span style="display: flex">
+            <PrimeButton v-show="password" icon="pi pi-arrows-v" text />
+            <h1 style="margin: 0; font-size: 32px">{{ accountName }}</h1>
+            <PrimeButton v-show="password" icon="pi pi-copy" text
           /></span>
-          <h5 v-if="password" style="margin: 0">Balance: {{ balance }} $</h5>
         </div>
+        <PrimeButton v-if="password" icon="pi pi-sign-out" text />
       </div>
     </template>
     <template #content>
@@ -77,8 +85,8 @@ export default {
 .walletHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
+  gap: 20px;
 }
 .walletHeaderContent {
   display: flex;

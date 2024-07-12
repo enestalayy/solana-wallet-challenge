@@ -1,16 +1,16 @@
+<script setup>
+import { WalletMultiButton } from "solana-wallets-vue";
+</script>
 <template>
   <div class="container">
-    <Wallet />
+    <ClientOnly>
+      <WalletMultiButton />
+    </ClientOnly>
   </div>
 </template>
 
 <script>
-import Wallet from "~/components/wallet/Wallet.vue";
-export default {
-  components: {
-    Wallet,
-  },
-};
+export default {};
 </script>
 
 <style scoped>

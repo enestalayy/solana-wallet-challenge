@@ -28,10 +28,29 @@ export default defineNuxtConfig({
   //   apiUrl: process.env.API_URL,
   //   apiKey: process.env.API_KEY,
   // },
+  // plugins: [{ src: "~/plugins/solana.ts", mode: "client" }],
+  vite: {
+    esbuild: {
+      target: "esnext",
+    },
+    build: {
+      target: "esnext",
+    },
+    optimizeDeps: {
+      include: ["@project-serum/anchor", "@solana/web3.js", "buffer"],
+      esbuildOptions: {
+        target: "esnext",
+      },
+    },
+    define: {
+      "process.env.BROWSER": true,
+    },
+  },
   css: [
     "primevue/resources/themes/aura-dark-cyan/theme.css",
     "primeicons/primeicons.css",
     "primevue/resources/primevue.min.css",
+    "solana-wallets-vue/styles.css",
     "assets/global.css",
   ],
 });

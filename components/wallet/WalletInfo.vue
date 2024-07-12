@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h5 v-if="password" style="margin: 0">Balance: {{ balance }} $</h5>
+
     <ul>
       <li><PrimeButton size="small" label="Receive" icon="pi pi-plus" /></li>
       <li><PrimeButton size="small" label="Send" icon="pi pi-send" /></li>
@@ -11,8 +13,9 @@
         />
       </li>
     </ul>
-    <h4>Info 2</h4>
+
     <h4>Info 3</h4>
+    <PrimeButton @click="connectToPartnerApp" label="ZORT" />
   </div>
 </template>
 
@@ -22,10 +25,10 @@ import { mapActions, mapState } from "pinia";
 export default {
   name: "WalletInfo",
   computed: {
-    ...mapState(useAccountStore, [""]),
+    ...mapState(useAccountStore, ["password", "balance"]),
   },
   methods: {
-    ...mapActions(useAccountStore, ["getBalance"]),
+    ...mapActions(useAccountStore, ["getBalance", "connectToPartnerApp"]),
   },
   created() {
     this.getBalance();
@@ -41,6 +44,6 @@ ul {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
 }
 </style>

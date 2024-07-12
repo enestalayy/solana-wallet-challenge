@@ -39,13 +39,18 @@
       label="Unlock"
     />
   </form>
+  <WalletAdapter />
 </template>
 
 <script>
 import { mapActions } from "pinia";
+import WalletAdapter from "./WalletAdapter.vue";
 
 export default {
   name: "EmptyWallet",
+  components: {
+    WalletAdapter,
+  },
   data() {
     return {
       password: "",
