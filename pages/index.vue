@@ -1,24 +1,83 @@
-<script setup>
-import { WalletMultiButton } from "solana-wallets-vue";
-</script>
 <template>
   <div class="container">
-    <ClientOnly>
-      <WalletMultiButton />
-    </ClientOnly>
+    <PrimeCard class="card">
+      <template #title>
+        <div class="flex-center" style="width: 100%">
+          <PrimeButton
+            @click="backToMenu"
+            v-show="showCreateWallet || showImportWallet"
+            class="backButton"
+            icon="pi pi-angle-left"
+            size="large"
+            text
+          />
+          <img
+            v-if="!showCreateWallet"
+            class="walletImg"
+            src="/wallet_100px.webp"
+            alt="Secured Coin Wallet"
+          />
+          <h1 v-else style="font-size: 24px; margin: 0">
+            {{ program ? "Unlock your Wallet" : "Create Wallet" }}
+          </h1>
+        </div>
+      </template>
+      <template #content>
+        <UnlockWallet v-if="secretKey" />
+        <div v-else>
+          <div v-show="!showCreateWallet" class="flex-col gap-20">
+            <PrimeButton
+              @click="showCreateWallet = true"
+              label="Create a new wallet"
+            />
+            <PrimeButton
+              @click="showImportWallet = true"
+              label="Import an existing wallet"
+              text
+            />
+          </div>
+          <CreateWallet v-if="showCreateWallet" />
+        </div>
+      </template>
+    </PrimeCard>
   </div>
 </template>
 
 <script>
-export default {};
+import { mapState } from "pinia";
+import CreateWallet from "~/components/wallet/CreateWallet.vue";
+import UnlockWallet from "~/components/wallet/UnlockWallet.vue";
+
+export default {
+  components: {
+    CreateWallet,
+    UnlockWallet,
+  },
+  data() {
+    return {
+      showCreateWallet: false,
+      showImportWallet: false,
+      secretKey: localStorage.getItem("secretKey"),
+    };
+  },
+
+  computed: {
+    ...mapState(useAccountStore, ["program"]),
+  },
+
+  methods: {
+    backToMenu() {
+      this.showCreateWallet = false;
+      this.showImportWallet = false;
+    },
+  },
+};
 </script>
 
 <style scoped>
-.container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 15px;
+.walletImg {
+  width: 120px;
+  height: 120px;
+  border-radius: 12px;
 }
 </style>

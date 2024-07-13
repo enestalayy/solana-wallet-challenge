@@ -20,10 +20,8 @@
           <span style="display: flex">
             <PrimeButton v-show="password" icon="pi pi-arrows-v" text />
             <h1 style="margin: 0; font-size: 32px">{{ accountName }}</h1>
-            <PrimeButton v-show="password" icon="pi pi-copy" text
-          /></span>
+          </span>
         </div>
-        <PrimeButton v-if="password" icon="pi pi-sign-out" text />
       </div>
     </template>
     <template #content>
@@ -31,7 +29,7 @@
         class="walletWrapper"
         :style="password && 'align-items: flex-start;'"
       >
-        <EmptyWallet v-if="!password" />
+        <CreateWallet v-if="!password" />
         <WalletInfo v-else />
       </div>
     </template>
@@ -40,13 +38,13 @@
 
 <script>
 import { mapState } from "pinia";
-import EmptyWallet from "./EmptyWallet.vue";
+import CreateWallet from "./CreateWallet.vue";
 import WalletInfo from "./WalletInfo.vue";
 
 export default {
   name: "Wallet",
   components: {
-    EmptyWallet,
+    CreateWallet,
     WalletInfo,
   },
   computed: {
@@ -61,12 +59,6 @@ export default {
 </script>
 
 <style scoped>
-.walletImg {
-  width: 80px;
-  height: 80px;
-  border-radius: 12px;
-}
-
 .walletCard {
   min-width: 350px;
   width: fit-content;
