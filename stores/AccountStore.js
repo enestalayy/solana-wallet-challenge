@@ -1,12 +1,7 @@
 import { defineStore } from "pinia";
 import {
   Keypair,
-  Connection,
-  PublicKey,
-  LAMPORTS_PER_SOL,
 } from "@solana/web3.js";
-import { Program, web3, AnchorProvider } from "@project-serum/anchor";
-import { IDL } from "~/counter_idl";
 import CryptoJS from "crypto-js";
 
 export const useAccountStore = defineStore("accountStore", {
