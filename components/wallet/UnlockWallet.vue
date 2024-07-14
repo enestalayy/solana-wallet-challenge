@@ -56,7 +56,6 @@ export default {
     ...mapActions(useAccountStore, ["unlockWallet"]),
     checkPassword() {
       const error = this.unlockWallet(this.password);
-      console.log("error :>> ", error);
       if (error) {
         this.showError = true;
       } else {

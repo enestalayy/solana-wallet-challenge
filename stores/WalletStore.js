@@ -43,7 +43,6 @@ export const useWalletStore = defineStore("walletStore", {
           this.wallet.publicKey,
           LAMPORTS_PER_SOL
         );
-        console.log("airdropSignature :>> ", airdropSignature);
         const confirmTransaction = await this.connection.confirmTransaction(
           airdropSignature
         );

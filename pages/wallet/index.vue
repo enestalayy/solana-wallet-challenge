@@ -53,7 +53,6 @@ export default {
   },
   mounted() {
     const savedPassword = localStorage.getItem("password");
-    console.log("savedPassword :>> ", savedPassword);
     if (savedPassword) {
       this.unlockWallet(savedPassword);
     } else if(!this.password) {
@@ -70,7 +69,6 @@ export default {
     async reqAirdrop() {
       const error = await this.requestAirdrop()
       if (error) {
-        console.log('error :>> ', error);
         this.$toast.add({
           severity: "info",
           summary: "Airdrop request failed",

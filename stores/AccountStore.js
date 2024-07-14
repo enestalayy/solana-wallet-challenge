@@ -1,7 +1,5 @@
 import { defineStore } from "pinia";
-import {
-  Keypair,
-} from "@solana/web3.js";
+import { Keypair } from "@solana/web3.js";
 import CryptoJS from "crypto-js";
 
 export const useAccountStore = defineStore("accountStore", {
@@ -46,7 +44,6 @@ export const useAccountStore = defineStore("accountStore", {
         this.secretKey = new Uint8Array(
           decryptedSecretKey.split(",").map(Number)
         );
-        console.log("this.secretKey :>> ", this.secretKey);
         this.password = enteredPassword;
       } catch (error) {
         return error;
