@@ -1,49 +1,64 @@
 <template>
-  <div>
-    <h5 v-if="password" style="margin: 0">Balance: {{ balance }} $</h5>
-
-    <ul>
-      <li><PrimeButton size="small" label="Receive" icon="pi pi-plus" /></li>
-      <li><PrimeButton size="small" label="Send" icon="pi pi-send" /></li>
-      <li>
-        <PrimeButton
-          size="small"
-          label="Swap"
-          icon="pi pi-arrow-right-arrow-left"
-        />
-      </li>
-    </ul>
-
-    <h4>Info 3</h4>
-    <PrimeButton @click="connectToPartnerApp" label="ZORT" />
-  </div>
+  <ul>
+    <li v-for="token in tokens" :key="token.code">
+      <div class="flex-between assetsCard">
+        <div class="flex-start flex-1">
+          <img :src="token.imgPath" :alt="token.name + 'logo'" />
+        </div>
+        <div class="flex-center flex-1 gap-10" style="flex-direction: column">
+          <p style="margin: 0">{{ token.name }}</p>
+          <p style="margin: 0">
+            {{ token.code === "SOL" ? balance : 0 }} {{ token.code }}
+          </p>
+        </div>
+        <div class="flex-end flex-1">
+          <p>$ 150,1545</p>
+        </div>
+      </div>
+    </li>
+  </ul>
 </template>
 
 <script>
 import { mapActions, mapState } from "pinia";
-
+import Solana from "../CoinLogo/Solana.vue";
+import { tokens } from "~/assets/tokens.json";
 export default {
   name: "WalletInfo",
+  data() {
+    return {
+      tokens: tokens,
+    };
+  },
+  components: {
+    Solana,
+  },
   computed: {
-    ...mapState(useAccountStore, ["password", "balance"]),
+    ...mapState(useWalletStore, ["balance"]),
   },
   methods: {
-    ...mapActions(useAccountStore, ["getBalance", "connectToPartnerApp"]),
+    ...mapActions(useWalletStore, ["initializeAnchor"]),
+    ...mapActions(useSwapStore, ["swapTransaction"]),
   },
   created() {
-    this.getBalance();
+    this.initializeAnchor();
   },
 };
 </script>
 
 <style scoped>
-div {
-  width: 100%;
-}
 ul {
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 10px;
+}
+li {
+  width: 100%;
+}
+.assetsCard {
+  background: linear-gradient(225deg, var(--primary-900), var(--surface-card));
+  border-radius: 12px;
+  padding: 6px 10px;
 }
 </style>

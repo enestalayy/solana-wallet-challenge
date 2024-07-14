@@ -68,13 +68,11 @@
 
 <script>
 import { mapActions, mapState } from "pinia";
-import WalletAdapter from "./WalletAdapter.vue";
 import RegisterRule from "./RegisterRule.vue";
 
 export default {
   name: "CreateWallet",
   components: {
-    WalletAdapter,
     RegisterRule,
   },
   data() {
@@ -86,7 +84,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(useAccountStore, ["program"]),
+    ...mapState(useWalletStore, ["program"]),
   },
   methods: {
     ...mapActions(useAccountStore, ["initWallet"]),

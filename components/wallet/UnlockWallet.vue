@@ -1,5 +1,10 @@
 <template>
-  <form @submit.prevent="checkPassword(password)" class="flex-col gap-48">
+  <form
+    @submit.prevent="checkPassword(password)"
+    class="flex-col gap-48"
+    style="align-items: center"
+  >
+    <h2 style="text-align: center">Welcome Back!</h2>
     <PrimeFloatLabel>
       <PrimePassword
         v-model="password"
@@ -18,6 +23,13 @@
         :closable="false"
         >Incorrect password. Please try again.</PrimeMessage
       >
+      <PrimeCheckbox
+        v-model="savePassword"
+        inputId="savePassword"
+        :binary="true"
+        style="margin-right: 10px"
+      />
+      <label for="savePassword" class="ml-2"> Keep me signed in </label>
     </div>
     <PrimeButton
       type="submit"
@@ -36,6 +48,7 @@ export default {
   data() {
     return {
       password: "",
+      savePassword: false,
       showError: false,
     };
   },
@@ -46,8 +59,10 @@ export default {
       console.log("error :>> ", error);
       if (error) {
         this.showError = true;
-        console.log("this.$refs :>> ", this.$refs);
       } else {
+        if (savePassword) {
+          localStorage.setItem("password", this.password);
+        }
         this.$router.push("/wallet");
       }
     },

@@ -25,7 +25,11 @@
       <template #content>
         <UnlockWallet v-if="secretKey" />
         <div v-else>
-          <div v-show="!showCreateWallet" class="flex-col gap-20">
+          <div
+            v-show="!showCreateWallet"
+            class="flex-col gap-20"
+            style="align-items: center"
+          >
             <PrimeButton
               @click="showCreateWallet = true"
               label="Create a new wallet"
@@ -62,7 +66,7 @@ export default {
   },
 
   computed: {
-    ...mapState(useAccountStore, ["program"]),
+    ...mapState(useWalletStore, ["program"]),
   },
 
   methods: {

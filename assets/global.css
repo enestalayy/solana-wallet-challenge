@@ -8,10 +8,23 @@ ul {
   list-style: none;
   padding-left: unset;
 }
+.flex-1 {
+  flex: 1;
+}
+.flex-start {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
 .flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.flex-end {
+  display: flex;
+  align-items: center;
+  justify-content: end;
 }
 .flex-col {
   display: flex;
@@ -28,6 +41,9 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.gap-10 {
+  gap: 10px;
 }
 .gap-20 {
   gap: 20px;
@@ -54,7 +70,7 @@ ul {
 }
 
 .card {
-  width: 500px;
+  width: 450px;
   height: 500px;
   position: relative;
 }
@@ -83,6 +99,9 @@ ul {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    .p-card-content {
+      width: 100%;
+    }
   }
   .p-card-caption {
     width: 100%;
@@ -92,6 +111,11 @@ ul {
     }
   }
 }
+.p-progress-spinner-circle {
+  animation: p-progress-spinner-dash 1.5s ease-in-out infinite;
+  stroke: var(--primary-color);
+}
+
 #confirmPassword {
   width: 100%;
 }
